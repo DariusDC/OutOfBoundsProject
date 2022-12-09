@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:out_of_bounds/widgets/app_bar/app_bar_right_widget.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -11,10 +12,13 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("Home"),
-      ),
-      body: const Center(child: Text("Home")),
-    );
+        body: Column(
+      children: [
+        AppBarRightWidget(
+          title: "Home",
+          onButtonPressed: () {},
+        ),
+      ],
+    ));
   }
 }
