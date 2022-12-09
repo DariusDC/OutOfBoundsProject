@@ -1,11 +1,11 @@
 extension ListExtensions<T> on List<T> {
   bool equals(List<T>? other) {
     if (other == null) return true;
-    if (other?.length != length) {
+    if (other.length != length) {
       return false;
     }
     for (int i = 0; i < length; i++) {
-      if (this[i] != other![i]) {
+      if (this[i] != other[i]) {
         return false;
       }
     }

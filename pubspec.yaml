@@ -42,15 +42,15 @@ flutter:
           weight: 600
     - family: BebasNeue
       fonts:
-        - asset: assets/fonts/bebas_neue/BebasNeue-Bold.ttf
-          weight: 700
-        - asset: assets/fonts/bebas_neue/BebasNeue-Light.ttf
-          weight: 300
-        - asset: assets/fonts/bebas_neue/BebasNeue-Regular.ttf
+#        - asset: assets/fonts/bebas_neue/BebasNeue-Bold.ttf
+#          weight: 700
+#        - asset: assets/fonts/bebas_neue/BebasNeue-Light.ttf
+#          weight: 300
+        - asset: assets/fonts/Bebas_Neue/BebasNeue-Regular.ttf
           weight: 400
-    - family: Gibson
-      fonts:
-        - asset: assets/fonts/gibson/Gibson-Bold.ttf
-          weight: 700
-        - asset: assets/fonts/gibson/Gibson-Regular.ttf
-          weight: 400
+#    - family: Gibson
+#      fonts:
+#        - asset: assets/fonts/gibson/Gibson-Bold.ttf
+#          weight: 700
+#        - asset: assets/fonts/gibson/Gibson-Regular.ttf
+#          weight: 400
