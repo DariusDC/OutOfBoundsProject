@@ -16,6 +16,6 @@ class AppBottomModalSheet {
           ),
         ),
         builder: builder,
-        enableDrag: enableDrag ?? true);
+        enableDrag: enableDrag);
   }
 }
