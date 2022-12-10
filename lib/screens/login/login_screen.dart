@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:out_of_bounds/screens/base_request_screen.dart';
 import 'package:out_of_bounds/screens/home.dart';
 import 'package:out_of_bounds/screens/login/login_view_model.dart';
+import 'package:out_of_bounds/screens/navigation/navigation.dart';
 import 'package:out_of_bounds/screens/register/register_screen.dart';
 import 'package:out_of_bounds/themes/app_colors.dart';
 import 'package:out_of_bounds/themes/app_dimens.dart';
@@ -47,7 +48,7 @@ class _LoginScreenState extends BaseRequestScreen<LoginScreen> {
           _loginError = null;
         });
         Navigator.of(context).pushReplacement(MaterialPageRoute(
-          builder: (context) => const Home(),
+          builder: (context) => const AppNavigation(),
         ));
       },
       handleError: (error) {

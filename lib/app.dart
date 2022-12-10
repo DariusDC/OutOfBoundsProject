@@ -63,6 +63,6 @@ class _RootState extends State<Root> {
       );
     }
 
-    return _isLoggedIn! ? const Home() : const LoginScreen();
+    return _isLoggedIn! ? const AppNavigation() : const LoginScreen();
   }
 }
