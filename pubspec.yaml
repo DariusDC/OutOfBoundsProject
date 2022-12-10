@@ -16,7 +16,10 @@ dependencies:
   json_annotation: ^4.4.0
   http: ^0.13.4
   shared_preferences: ^2.0.13
-
+#  fluttertoast: ^8.0.9
+  flutter_i18n: ^0.22.3
+  flutter_localizations:
+    sdk: flutter
 
   cupertino_icons: ^1.0.2
 

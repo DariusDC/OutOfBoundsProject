@@ -24,6 +24,7 @@ class RetrofitController {
       request: true,
       responseBody: true,
     ));
+    _addHeaders();
   }
 
   void _addHeaders() {

@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:out_of_bounds/widgets/app_bar/app_bar_right_widget.dart';
-import 'package:out_of_bounds/widgets/generic_check_list.dart';
+import 'package:out_of_bounds/extensions/string_extensions.dart';
+import 'package:out_of_bounds/screens/base_request_screen.dart';
+import 'package:out_of_bounds/themes/app_dimens.dart';
+import 'package:out_of_bounds/themes/app_text_styles.dart';
+import 'package:out_of_bounds/widgets/buttons/app_text_button.dart';
+import 'package:out_of_bounds/widgets/buttons/general_button.dart';
+import 'package:out_of_bounds/widgets/inputs/text_field_input.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -9,72 +14,51 @@ class LoginScreen extends StatefulWidget {
   _LoginScreenState createState() => _LoginScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
-  List<BottomNavigationBarItem> get _bottomNavigationBarItems => const [
-        BottomNavigationBarItem(
-          icon: Icon(Icons.settings),
-          label: "Settings",
-        ),
-        BottomNavigationBarItem(
-          icon: Icon(Icons.home),
-          label: "Home",
-        ),
-        BottomNavigationBarItem(
-          icon: Icon(Icons.person),
-          label: "Profile",
-        ),
-      ];
+class _LoginScreenState extends BaseRequestScreen<LoginScreen> {
+  final TextEditingController _emailController =
+      TextEditingController(text: "");
+  final TextEditingController _passwordController =
+      TextEditingController(text: "");
 
-  int _selectedIndex = 1;
+  @override
+  void initState() {
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: Column(
-          children: [
-            AppBarRightWidget(
-              title: "Home",
-              buttonText: "Cancel",
-              onButtonPressed: () {},
+      body: SafeArea(
+        child: Center(
+          child: Padding(
+            padding: const EdgeInsets.only(
+              top: AppDimens.x14LPadding,
+              left: AppDimens.xLPadding,
+              right: AppDimens.xLPadding,
+              bottom: AppDimens.largePadding,
             ),
-            Text("Home"),
-            // ElevatedButton(
-            //   onPressed: () {
-            //     Navigator.of(context)
-            //         .push(MaterialPageRoute(builder: (context) {
-            //       return Scaffold(
-            //         body: Center(
-            //           child: GenericCheckList(
-            //             items: ["1", "2", "3"],
-            //             onSubmit: () {},
-            //           ),
-            //         ),
-            //       );
-            //     }));
-            //   },
-            //   child: Text("Open"),
-            // ),
-            Flexible(
-              child: GenericCheckList(
-                items: ["1", "2", "3"],
-                onSubmit: (items) {
-                  print("$items");
-                },
-              ),
+            child: Column(
+              children: [
+                const Text(
+                  "LOGO",
+                  style: AppTextStyles.x6LBoldPoppins,
+                ),
+                TextFieldInput(
+                  controller: _emailController,
+                  hint: "email".translate(context),
+                ),
+                const SizedBox(height: AppDimens.largePadding),
+                TextFieldInput(
+                  controller: _passwordController,
+                  hint: "password".translate(context),
+                ),
+                const SizedBox(height: AppDimens.largePadding),
+                GeneralButton(
+                    onPressed: () {}, text: "login".translate(context))
+              ],
             ),
-          ],
+          ),
         ),
-      ),
-      bottomNavigationBar: BottomNavigationBar(
-        currentIndex: _selectedIndex,
-        onTap: (index) {
-          print("page:$index");
-          setState(() {
-            _selectedIndex = index;
-          });
-        },
-        items: _bottomNavigationBarItems,
       ),
     );
   }
