@@ -16,6 +16,7 @@ class TextFieldInput extends StatefulWidget {
     this.textInputAction,
     this.textInputKey,
     this.obscureText = false,
+    this.focusNode,
   }) : super(key: key);
 
   factory TextFieldInput.link({
@@ -87,6 +88,7 @@ class TextFieldInput extends StatefulWidget {
   final double? textSize;
   final TextInputType? keyboardType;
   final TextInputAction? textInputAction;
+  final FocusNode? focusNode;
 
   @override
   State<TextFieldInput> createState() => _TextFieldInputState();
@@ -137,6 +139,7 @@ class _TextFieldInputState extends State<TextFieldInput> {
           obscuringCharacter: "*",
           key: widget.textInputKey,
           controller: _controller,
+          focusNode: widget.focusNode,
           inputFormatters: ([
             TextInputType.phone,
             TextInputType.number,
