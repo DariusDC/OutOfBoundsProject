@@ -64,7 +64,9 @@ class _AppNavigationState extends State<AppNavigation> {
       child: ElevatedButton(
         onPressed: () {
           Navigator.of(context).push(MaterialPageRoute(builder: (context) {
-            return TechnologiesScreen();
+            return TechnologiesScreen(
+              onSubmit: (technologies) {},
+            );
           }));
         },
         child: Text("Selecte Technologies"),

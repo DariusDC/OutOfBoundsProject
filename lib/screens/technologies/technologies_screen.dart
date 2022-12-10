@@ -7,7 +7,11 @@ import '../../widgets/app_bar/app_bar_right_widget.dart';
 import '../../widgets/generic_check_list.dart';
 
 class TechnologiesScreen extends StatefulWidget {
-  const TechnologiesScreen({Key? key}) : super(key: key);
+  final Function(List<Technology>) onSubmit;
+  const TechnologiesScreen({
+    Key? key,
+    required this.onSubmit,
+  }) : super(key: key);
 
   @override
   State<TechnologiesScreen> createState() => _TechnologiesScreenState();
@@ -44,6 +48,18 @@ class _TechnologiesScreenState extends State<TechnologiesScreen> {
       name: "Embedded C",
       description: "arduino",
     ),
+    Technology(
+      name: "Embedded C",
+      description: "arduino",
+    ),
+    Technology(
+      name: "Embedded C",
+      description: "arduino",
+    ),
+    Technology(
+      name: "Embedded C",
+      description: "arduino",
+    ),
   ];
   List<Technology> _technologyList = [];
 
@@ -71,7 +87,8 @@ class _TechnologiesScreenState extends State<TechnologiesScreen> {
               child: TechnologiesCheckList(
                 technologies: _technologyList,
                 onSubmit: (selectedTechnologies) {
-                  print("${selectedTechnologies.map((e) => e.name)}");
+                  widget.onSubmit(selectedTechnologies);
+                  Navigator.of(context).pop();
                 },
                 onTechnologySelected: _onTechnologySelected,
               ),

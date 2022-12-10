@@ -28,7 +28,6 @@ class _TechnologiesCheckListState extends State<TechnologiesCheckList> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      // margin: const EdgeInsets.symmetric(horizontal: AppDimens.largePadding),
       padding: const EdgeInsets.symmetric(
         vertical: AppDimens.smallPadding,
         horizontal: AppDimens.smallPadding,
@@ -44,10 +43,10 @@ class _TechnologiesCheckListState extends State<TechnologiesCheckList> {
             height: 2,
             color: AppColors.gray,
             width: double.infinity,
-            margin: EdgeInsets.only(bottom: 5),
+            margin: const EdgeInsets.only(bottom: 5),
           ),
           if (widget.technologies.isEmpty)
-            Center(
+            const Center(
               child: Text("No technology available"),
             ),
           Expanded(
@@ -56,62 +55,7 @@ class _TechnologiesCheckListState extends State<TechnologiesCheckList> {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   ...widget.technologies
-                      .map(
-                        (e) => GestureDetector(
-                          onTap: widget.onItemTap,
-                          child: Container(
-                            padding: const EdgeInsets.symmetric(
-                              vertical: 10,
-                              horizontal: 10,
-                            ),
-                            margin: const EdgeInsets.only(bottom: 20),
-                            decoration: BoxDecoration(
-                              color: AppColors.darkBlue,
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Text(
-                                      e.name,
-                                      style: AppTextStyles.xLRegularPoppins
-                                          .copyWith(
-                                        color: AppColors.white,
-                                      ),
-                                    ),
-                                    Checkbox(
-                                        side: const BorderSide(
-                                          color: AppColors.white,
-                                        ),
-                                        activeColor: AppColors.darkBlue,
-                                        value: selectedTechnologies.contains(e),
-                                        onChanged: (value) {
-                                          setState(() {
-                                            if (value == true) {
-                                              selectedTechnologies.add(e);
-                                            } else {
-                                              selectedTechnologies.remove(e);
-                                            }
-                                          });
-                                        }),
-                                  ],
-                                ),
-                                Text(
-                                  e.description,
-                                  style: AppTextStyles.smallRegularPoppins
-                                      .copyWith(
-                                    color: AppColors.white,
-                                  ),
-                                )
-                              ],
-                            ),
-                          ),
-                        ),
-                      )
+                      .map((e) => _technologyCell(e))
                       .toList(),
                 ],
               ),
@@ -148,6 +92,60 @@ class _TechnologiesCheckListState extends State<TechnologiesCheckList> {
             ],
           ),
         ],
+      ),
+    );
+  }
+
+  Widget _technologyCell(Technology e) {
+    return GestureDetector(
+      onTap: widget.onItemTap,
+      child: Container(
+        padding: const EdgeInsets.symmetric(
+          vertical: 10,
+          horizontal: 10,
+        ),
+        margin: const EdgeInsets.only(bottom: 20),
+        decoration: BoxDecoration(
+          color: AppColors.darkBlue,
+          borderRadius: BorderRadius.circular(10),
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  e.name,
+                  style: AppTextStyles.xLRegularPoppins.copyWith(
+                    color: AppColors.white,
+                  ),
+                ),
+                Checkbox(
+                    side: const BorderSide(
+                      color: AppColors.white,
+                    ),
+                    activeColor: AppColors.darkBlue,
+                    value: selectedTechnologies.contains(e),
+                    onChanged: (value) {
+                      setState(() {
+                        if (value == true) {
+                          selectedTechnologies.add(e);
+                        } else {
+                          selectedTechnologies.remove(e);
+                        }
+                      });
+                    }),
+              ],
+            ),
+            Text(
+              e.description,
+              style: AppTextStyles.smallRegularPoppins.copyWith(
+                color: AppColors.white,
+              ),
+            )
+          ],
+        ),
       ),
     );
   }
