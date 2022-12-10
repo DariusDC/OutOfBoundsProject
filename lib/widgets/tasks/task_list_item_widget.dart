@@ -40,7 +40,7 @@ class TaskListItemWidget extends StatelessWidget {
                 children: [
                   const Icon(Icons.arrow_right_outlined),
                   Text(
-                    "${task.subtasks.where((element) => element.done).length.toString()}/${task.subtasks.length.toString()} tasks",
+                    "${task.subtasks.where((element) => element.done ?? false).length.toString()}/${task.subtasks.length.toString()} tasks",
                     style: AppTextStyles.smallSemiBoldPoppins.copyWith(
                       color: getColorForTaskType(task.taskType),
                     ),

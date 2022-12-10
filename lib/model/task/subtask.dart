@@ -4,10 +4,12 @@ part 'subtask.g.dart';
 
 @JsonSerializable()
 class Subtask {
-  final String description;
-  final bool done;
+  int? id;
+  String? description;
+  bool? done;
 
   Subtask({
+    required this.id,
     required this.description,
     required this.done,
   });

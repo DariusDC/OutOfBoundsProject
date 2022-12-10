@@ -17,10 +17,11 @@ import 'package:rxdart/rxdart.dart';
 
 List<Task> tasks = [
   Task(
-    description: "task 1",
+    description:
+        "task 1 task 1 task 1 task 1 task 1 task 1 task 1 task 1 task 1 task 1 task 1 task 1 task 1 task 1 task 1 task 1 task 1 task 1 task 1 task 1 task 1 task 1 task 1 task 1 task 1 task 1 task 1 task 1 task 1 task 1 task 1 task 1 task 1 task 1 task 1 task 1 ",
     subtasks: [
-      Subtask(description: "t1 s1", done: false),
-      Subtask(description: "t1 s2", done: true)
+      Subtask(description: "t1 s1", done: false, id: 1),
+      Subtask(description: "t1 s2", done: true, id: 2)
     ],
     name: "fa task1",
     taskType: TaskType.DONE,
@@ -28,8 +29,8 @@ List<Task> tasks = [
   Task(
     description: "task 2",
     subtasks: [
-      Subtask(description: "t2 s1", done: true),
-      Subtask(description: "t2 s2", done: true)
+      Subtask(description: "t2 s1", done: true, id: 3),
+      Subtask(description: "t2 s2", done: true, id: 4)
     ],
     name: "fa task2",
     taskType: TaskType.IN_PROGRESS,
@@ -37,8 +38,8 @@ List<Task> tasks = [
   Task(
     description: "task 3",
     subtasks: [
-      Subtask(description: "t3 s1", done: false),
-      Subtask(description: "t3 s2", done: false)
+      Subtask(description: "t3 s1", done: false, id: 5),
+      Subtask(description: "t3 s2", done: false, id: 6)
     ],
     name: "fa task3",
     taskType: TaskType.TODO,
