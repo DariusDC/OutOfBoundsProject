@@ -88,10 +88,13 @@ class AppDimens {
   static const double loaderWidth = 300;
 
   static const EdgeInsetsGeometry textIconButtonPadding =
-  EdgeInsets.fromLTRB(20, 17, 30, 18);
+      EdgeInsets.fromLTRB(20, 17, 30, 18);
 
   static const double smallImageSize = 80;
   static const double largeImageSize = 230;
 
   static const double transparentContainerHeight = 100;
+
+  static const double progressBarWidth = 130;
+  static const double progressBarHeight = 15;
 }

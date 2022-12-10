@@ -6,8 +6,11 @@ import 'package:out_of_bounds/model/user.dart';
 import 'package:out_of_bounds/themes/app_colors.dart';
 import 'package:out_of_bounds/themes/app_dimens.dart';
 import 'package:out_of_bounds/widgets/app_bar/hello_app_bar.dart';
+import 'package:out_of_bounds/widgets/filters/filters_tab.dart';
+import 'package:out_of_bounds/widgets/task_progress_card.dart';
+import 'package:out_of_bounds/widgets/tasks/task_list_item_widget.dart';
 
-List<Task> _tasks = [
+List<Task> tasks = [
   Task(
     description: "task 1",
     subtasks: [
@@ -45,6 +48,15 @@ class ProgressScreen extends StatefulWidget {
 }
 
 class _ProgressScreenState extends State<ProgressScreen> {
+  final List<Task> _tasks = tasks;
+  TaskType _selectedFilter = TaskType.IN_PROGRESS;
+
+  _onFilterChanged(TaskType type) {
+    setState(() {
+      _selectedFilter = type;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -55,7 +67,31 @@ class _ProgressScreenState extends State<ProgressScreen> {
             children: [
               HelloAppBar(user: User(firstName: "Marius", lastName: "Popa")),
               const SizedBox(height: AppDimens.largePadding),
-              Text("")
+              Padding(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: AppDimens.regularPadding,
+                ),
+                child: Column(
+                  children: [
+                    TaskProgressCard(tasks: _tasks),
+                    const SizedBox(height: AppDimens.largePadding),
+                    const SizedBox(height: AppDimens.largePadding),
+                    FiltersTab(
+                      selectedFilter: _selectedFilter,
+                      onTap: _onFilterChanged,
+                    ),
+                    const SizedBox(height: AppDimens.largePadding),
+                    ..._tasks
+                        .map((e) => Column(
+                              children: [
+                                TaskListItemWidget(task: e),
+                                SizedBox(height: AppDimens.xSPadding)
+                              ],
+                            ))
+                        .toList(),
+                  ],
+                ),
+              ),
             ],
           ),
         ),
