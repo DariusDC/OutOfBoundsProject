@@ -6,6 +6,8 @@ import 'package:out_of_bounds/screens/progress/progress_screen.dart';
 import 'package:out_of_bounds/widgets/app_bar/app_bar_right_widget.dart';
 import 'package:out_of_bounds/widgets/generic_check_list.dart';
 
+import '../home/home_screen.dart';
+
 class AppNavigation extends StatefulWidget {
   const AppNavigation({Key? key}) : super(key: key);
 
@@ -25,12 +27,12 @@ class _AppNavigationState extends State<AppNavigation> {
           label: "Progress",
         ),
         BottomNavigationBarItem(
-          icon: Icon(Icons.document_scanner),
-          label: "Materials",
+          icon: Icon(Icons.home),
+          label: "Home",
         ),
         BottomNavigationBarItem(
           icon: Icon(Icons.settings),
-          label: "Account Settings",
+          label: "Settings",
         ),
       ];
 
@@ -56,9 +58,7 @@ class _AppNavigationState extends State<AppNavigation> {
     if (_selectedIndex == 0) {
       return ProgressScreen();
     } else if (_selectedIndex == 1) {
-      return Center(
-        child: Text("Materials"),
-      );
+      return HomeScreen();
     }
     return Center(
       child: ElevatedButton(
