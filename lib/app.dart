@@ -3,6 +3,7 @@ import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:flutter_i18n/loaders/decoders/json_decode_strategy.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:out_of_bounds/screens/login/login_screen.dart';
+import 'package:out_of_bounds/screens/navigation/navigation.dart';
 import 'package:out_of_bounds/themes/app_theme.dart';
 
 class PlanYourFood extends StatelessWidget {
@@ -12,7 +13,7 @@ class PlanYourFood extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: "Plan your food",
+      title: "JobMaster",
       theme: AppTheme.appTheme,
       home: const Root(),
       localizationsDelegates: [
@@ -40,6 +41,6 @@ class Root extends StatefulWidget {
 class _RootState extends State<Root> {
   @override
   Widget build(BuildContext context) {
-    return const LoginScreen();
+    return const AppNavigation();
   }
 }

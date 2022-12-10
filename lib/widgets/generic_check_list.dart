@@ -4,10 +4,12 @@ import 'package:out_of_bounds/themes/app_dimens.dart';
 
 class GenericCheckList extends StatefulWidget {
   final List<String> items;
+  final VoidCallback? onItemTap;
   final void Function(List<String>) onSubmit;
   const GenericCheckList({
     required this.items,
     required this.onSubmit,
+    this.onItemTap,
     Key? key,
   }) : super(key: key);
 
@@ -35,27 +37,38 @@ class _GenericCheckListState extends State<GenericCheckList> {
           children: [
             ...widget.items
                 .map(
-                  (e) => Row(
-                    children: [
-                      Checkbox(
-                          value: selectedItems.contains(e),
-                          onChanged: (value) {
-                            setState(() {
-                              if (value == true) {
-                                selectedItems.add(e);
-                              } else {
-                                selectedItems.remove(e);
-                              }
-                            });
-                          }),
-                      Text(e),
-                    ],
+                  (e) => GestureDetector(
+                    onTap: widget.onItemTap,
+                    child: Container(
+                      margin: const EdgeInsets.all(10),
+                      decoration: BoxDecoration(
+                        color: AppColors.red,
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(e),
+                          Checkbox(
+                              value: selectedItems.contains(e),
+                              onChanged: (value) {
+                                setState(() {
+                                  if (value == true) {
+                                    selectedItems.add(e);
+                                  } else {
+                                    selectedItems.remove(e);
+                                  }
+                                });
+                              }),
+                        ],
+                      ),
+                    ),
                   ),
                 )
                 .toList(),
             Container(
               alignment: Alignment.centerRight,
-              padding: EdgeInsets.only(right: AppDimens.smallPadding),
+              padding: const EdgeInsets.only(right: AppDimens.smallPadding),
               child: ElevatedButton(
                 onPressed: () => widget.onSubmit(selectedItems),
                 child: const Text("Submit"),
