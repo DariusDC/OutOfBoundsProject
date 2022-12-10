@@ -97,4 +97,5 @@ class AppDimens {
 
   static const double progressBarWidth = 130;
   static const double progressBarHeight = 15;
+  static const double appBottomModalBorderRadius = 16;
 }

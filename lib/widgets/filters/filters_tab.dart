@@ -21,7 +21,6 @@ class FiltersTab extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: 320,
       child: ClipRRect(
         borderRadius: const BorderRadius.all(
           Radius.circular(

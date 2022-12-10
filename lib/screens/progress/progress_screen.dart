@@ -3,12 +3,17 @@ import 'package:out_of_bounds/model/task/subtask.dart';
 import 'package:out_of_bounds/model/task/task.dart';
 import 'package:out_of_bounds/model/task/task_type.dart';
 import 'package:out_of_bounds/model/user.dart';
+import 'package:out_of_bounds/screens/base_request_screen.dart';
+import 'package:out_of_bounds/screens/progress/progress_view_model.dart';
+import 'package:out_of_bounds/screens/task_details/task_details_screen.dart';
 import 'package:out_of_bounds/themes/app_colors.dart';
 import 'package:out_of_bounds/themes/app_dimens.dart';
 import 'package:out_of_bounds/widgets/app_bar/hello_app_bar.dart';
+import 'package:out_of_bounds/widgets/elements/dialog/bottom_modal_sheet.dart';
 import 'package:out_of_bounds/widgets/filters/filters_tab.dart';
 import 'package:out_of_bounds/widgets/task_progress_card.dart';
 import 'package:out_of_bounds/widgets/tasks/task_list_item_widget.dart';
+import 'package:rxdart/rxdart.dart';
 
 List<Task> tasks = [
   Task(
@@ -47,9 +52,35 @@ class ProgressScreen extends StatefulWidget {
   _ProgressScreenState createState() => _ProgressScreenState();
 }
 
-class _ProgressScreenState extends State<ProgressScreen> {
+class _ProgressScreenState extends BaseRequestScreen<ProgressScreen> {
+  late ProgressViewModel _viewModel;
   final List<Task> _tasks = tasks;
   TaskType _selectedFilter = TaskType.IN_PROGRESS;
+
+  @override
+  void initState() {
+    super.initState();
+    _viewModel = ProgressViewModel(
+      Input(
+        PublishSubject(),
+      ),
+    );
+
+    _bindVM();
+  }
+
+  _bindVM() {
+    disposeLater(
+      _viewModel.output.onTaskTapped.listen(
+        (task) {
+          AppBottomModalSheet.displayModalBottomSheet(
+            context,
+            (context) => TaskDetailsScreen(task: task),
+          );
+        },
+      ),
+    );
+  }
 
   _onFilterChanged(TaskType type) {
     setState(() {
@@ -82,10 +113,15 @@ class _ProgressScreenState extends State<ProgressScreen> {
                     ),
                     const SizedBox(height: AppDimens.largePadding),
                     ..._tasks
+                        .where((element) => element.taskType == _selectedFilter)
                         .map((e) => Column(
                               children: [
-                                TaskListItemWidget(task: e),
-                                SizedBox(height: AppDimens.xSPadding)
+                                TaskListItemWidget(
+                                  task: e,
+                                  onTap: () =>
+                                      _viewModel.input.taskTapped.add(e),
+                                ),
+                                const SizedBox(height: AppDimens.xSPadding)
                               ],
                             ))
                         .toList(),
