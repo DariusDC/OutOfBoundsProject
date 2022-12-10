@@ -67,19 +67,13 @@ class _TechnologiesScreenState extends State<TechnologiesScreen> {
                 Navigator.of(context).pop();
               },
             ),
-            Container(
-              margin: const EdgeInsets.only(left: 15),
-              child: TechnologyTypeFilterWidget(
-                filters: TechnologyType.values,
-                onSelected: _onTechnologySelected,
-              ),
-            ),
             Flexible(
               child: TechnologiesCheckList(
                 technologies: _technologyList,
                 onSubmit: (selectedTechnologies) {
                   print("${selectedTechnologies.map((e) => e.name)}");
                 },
+                onTechnologySelected: _onTechnologySelected,
               ),
             ),
           ],
@@ -122,6 +116,7 @@ class _TechnologyTypeFilterWidgetState
     return Row(
       children: [
         DropdownButton<TechnologyType>(
+          icon: const Icon(Icons.arrow_drop_up_outlined),
           style: AppTextStyles.largeBoldPoppins,
           value: _selectedFilter,
           items: widget.filters

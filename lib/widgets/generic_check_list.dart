@@ -4,13 +4,17 @@ import 'package:out_of_bounds/themes/app_colors.dart';
 import 'package:out_of_bounds/themes/app_dimens.dart';
 import 'package:out_of_bounds/themes/app_text_styles.dart';
 
+import '../screens/technologies/technologies_screen.dart';
+
 class TechnologiesCheckList extends StatefulWidget {
   final List<Technology> technologies;
   final VoidCallback? onItemTap;
+  final Function(TechnologyType? type) onTechnologySelected;
   final void Function(List<Technology>) onSubmit;
   const TechnologiesCheckList({
     required this.technologies,
     required this.onSubmit,
+    required this.onTechnologySelected,
     this.onItemTap,
     Key? key,
   }) : super(key: key);
@@ -36,6 +40,16 @@ class _TechnologiesCheckListState extends State<TechnologiesCheckList> {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
+          Container(
+            height: 2,
+            color: AppColors.gray,
+            width: double.infinity,
+            margin: EdgeInsets.only(bottom: 5),
+          ),
+          if (widget.technologies.isEmpty)
+            Center(
+              child: Text("No technology available"),
+            ),
           Expanded(
             child: SingleChildScrollView(
               child: Column(
@@ -108,18 +122,30 @@ class _TechnologiesCheckListState extends State<TechnologiesCheckList> {
             color: AppColors.gray,
             width: double.infinity,
           ),
-          Container(
-            alignment: Alignment.centerRight,
-            padding: const EdgeInsets.only(right: AppDimens.smallPadding),
-            child: ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                  primary: AppColors.darkBlue,
-                  textStyle: AppTextStyles.mediumRegularPoppins.copyWith(
-                    color: AppColors.white,
-                  )),
-              onPressed: () => widget.onSubmit(selectedTechnologies),
-              child: const Text("Submit"),
-            ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Container(
+                margin: const EdgeInsets.only(left: 15),
+                child: TechnologyTypeFilterWidget(
+                  filters: TechnologyType.values,
+                  onSelected: widget.onTechnologySelected,
+                ),
+              ),
+              Container(
+                alignment: Alignment.centerRight,
+                padding: const EdgeInsets.only(right: AppDimens.smallPadding),
+                child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                      primary: AppColors.darkBlue,
+                      textStyle: AppTextStyles.mediumRegularPoppins.copyWith(
+                        color: AppColors.white,
+                      )),
+                  onPressed: () => widget.onSubmit(selectedTechnologies),
+                  child: const Text("Submit"),
+                ),
+              ),
+            ],
           ),
         ],
       ),
