@@ -22,11 +22,12 @@ class AppBarRightWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.only(
-        bottom: AppDimens.regularPadding,
+        top: AppDimens.regularPadding,
         left: AppDimens.regularPadding,
         right: AppDimens.regularPadding,
       ),
       child: AppBar(
+        leading: Container(),
         elevation: 0,
         centerTitle: true,
         backgroundColor: AppColors.transparent,

@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:out_of_bounds/model/technology.dart';
+import 'package:out_of_bounds/screens/technologies/technologies_screen.dart';
+import 'package:out_of_bounds/themes/app_text_styles.dart';
 import 'package:out_of_bounds/widgets/app_bar/app_bar_right_widget.dart';
 import 'package:out_of_bounds/widgets/generic_check_list.dart';
 
@@ -10,6 +13,11 @@ class AppNavigation extends StatefulWidget {
 }
 
 class _AppNavigationState extends State<AppNavigation> {
+  @override
+  void initState() {
+    super.initState();
+  }
+
   List<BottomNavigationBarItem> get _bottomNavigationBarItems => const [
         BottomNavigationBarItem(
           icon: Icon(Icons.bar_chart),
@@ -30,25 +38,7 @@ class _AppNavigationState extends State<AppNavigation> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: Column(
-          children: [
-            AppBarRightWidget(
-              title: "Technologies",
-              // buttonText: "Cancel",
-              onButtonPressed: () {},
-            ),
-            Flexible(
-              child: GenericCheckList(
-                items: ["1", "2", "3"],
-                onSubmit: (items) {
-                  print("$items");
-                },
-              ),
-            ),
-          ],
-        ),
-      ),
+      body: _getScreen,
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _selectedIndex,
         onTap: (index) {
@@ -57,6 +47,28 @@ class _AppNavigationState extends State<AppNavigation> {
           });
         },
         items: _bottomNavigationBarItems,
+      ),
+    );
+  }
+
+  Widget get _getScreen {
+    if (_selectedIndex == 0) {
+      return Center(
+        child: Text("Progress"),
+      );
+    } else if (_selectedIndex == 1) {
+      return Center(
+        child: Text("Materials"),
+      );
+    }
+    return Center(
+      child: ElevatedButton(
+        onPressed: () {
+          Navigator.of(context).push(MaterialPageRoute(builder: (context) {
+            return TechnologiesScreen();
+          }));
+        },
+        child: Text("Selecte Technologies"),
       ),
     );
   }
