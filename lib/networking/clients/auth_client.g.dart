@@ -33,7 +33,7 @@ class _AuthClient implements AuthClient {
     )
             .compose(
               _dio.options,
-              '/auth/signup',
+              '/auth/register',
               queryParameters: queryParameters,
               data: _data,
             )
@@ -57,7 +57,7 @@ class _AuthClient implements AuthClient {
     )
             .compose(
               _dio.options,
-              '/auth/signin',
+              '/auth/login',
               queryParameters: queryParameters,
               data: _data,
             )

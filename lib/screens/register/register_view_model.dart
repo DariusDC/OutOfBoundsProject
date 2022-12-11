@@ -1,4 +1,5 @@
 import 'package:out_of_bounds/model/ui_model.dart';
+import 'package:out_of_bounds/model/user_response.dart';
 import 'package:out_of_bounds/repository/auth_repository.dart';
 import 'package:rxdart/rxdart.dart';
 
@@ -11,8 +12,7 @@ class RegisterViewModel {
       : _authRepository = authRepository ?? AuthRepository() {
     output = Output(
       input.register.flatMap(
-        (value) => _authRepository.register(
-            value.username, value.password, value.email),
+        (value) => _authRepository.register(value),
       ),
     );
   }
@@ -25,21 +25,23 @@ class Input {
 }
 
 class Output {
-  final Stream<UIModel<bool>> onRegister;
+  final Stream<UIModel<UserResponse>> onRegister;
 
   Output(this.onRegister);
 }
 
 class UserRegister {
-  final String username;
-  final String password;
   final String email;
+  final String password;
+  final String firstName;
+  final String lastName;
 
-  UserRegister(this.username, this.email, this.password);
+  UserRegister(this.email, this.password, this.firstName, this.lastName);
 
   Map<String, dynamic> toJson() => {
-        "username": username,
         "password": password,
         "email": email,
+        "firstName": firstName,
+        "lastName": lastName,
       };
 }

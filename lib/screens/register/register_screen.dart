@@ -51,7 +51,9 @@ class _RegisterScreenState extends BaseRequestScreen<RegisterScreen> {
 
   final TextEditingController _emailController =
       TextEditingController(text: "");
-  final TextEditingController _usernameController =
+  final TextEditingController _firstNameController =
+      TextEditingController(text: "");
+  final TextEditingController _lastNameController =
       TextEditingController(text: "");
   final TextEditingController _passwordController =
       TextEditingController(text: "");
@@ -59,9 +61,10 @@ class _RegisterScreenState extends BaseRequestScreen<RegisterScreen> {
   void _onRegisterTap() {
     _viewModel.input.register.add(
       UserRegister(
-        _usernameController.text,
         _emailController.text,
         _passwordController.text,
+        _firstNameController.text,
+        _lastNameController.text,
       ),
     );
   }
@@ -95,20 +98,25 @@ class _RegisterScreenState extends BaseRequestScreen<RegisterScreen> {
                       ),
                       const SizedBox(height: AppDimens.x4LPadding),
                       TextFieldInput(
-                        controller: _usernameController,
-                        hint: "Username",
+                        controller: _firstNameController,
+                        hint: "First name",
+                      ),
+                      const SizedBox(height: AppDimens.x4LPadding),
+                      TextFieldInput(
+                        controller: _lastNameController,
+                        hint: "Last name",
                       ),
                       const SizedBox(height: AppDimens.x4LPadding),
                       TextFieldInput(
                         controller: _emailController,
                         hint: "Email",
                       ),
-                      const SizedBox(height: AppDimens.largePadding),
+                      const SizedBox(height: AppDimens.regularPadding),
                       TextFieldInput.password(
                         controller: _passwordController,
                         hint: "Password",
                       ),
-                      const SizedBox(height: AppDimens.largePadding),
+                      const SizedBox(height: AppDimens.x4LPadding),
                       if (_loginError != null)
                         Column(
                           children: [

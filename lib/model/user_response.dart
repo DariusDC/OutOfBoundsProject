@@ -4,12 +4,8 @@ part 'user_response.g.dart';
 
 @JsonSerializable()
 class UserResponse {
-  String? token;
-  String? type;
-  int? id;
-  String? username;
-  String? email;
-  List<String>? roles;
+  String? accessToken;
+  String? role;
 
   UserResponse();
 

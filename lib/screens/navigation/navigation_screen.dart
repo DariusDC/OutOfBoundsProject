@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:out_of_bounds/model/technology.dart';
+import 'package:out_of_bounds/model/user.dart';
 import 'package:out_of_bounds/screens/settings/settings_screen.dart';
 import 'package:out_of_bounds/screens/technologies/technologies_screen.dart';
 import 'package:out_of_bounds/themes/app_text_styles.dart';
@@ -9,14 +10,16 @@ import 'package:out_of_bounds/widgets/generic_check_list.dart';
 
 import '../home/home_screen.dart';
 
-class AppNavigation extends StatefulWidget {
-  const AppNavigation({Key? key}) : super(key: key);
+class AppNavigationScreen extends StatefulWidget {
+  const AppNavigationScreen({Key? key}) : super(key: key);
 
   @override
-  _AppNavigationState createState() => _AppNavigationState();
+  _AppNavigationScreenState createState() => _AppNavigationScreenState();
 }
 
-class _AppNavigationState extends State<AppNavigation> {
+class _AppNavigationScreenState extends State<AppNavigationScreen> {
+  User? user;
+
   @override
   void initState() {
     super.initState();

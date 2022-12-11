@@ -17,14 +17,14 @@ class AuthRepository {
         _sharedPreferencesRepository =
             sharedPreferencesRepository ?? SharedPreferencesRepository();
 
-  Stream<UIModel<UserResponse>> login(String username, String password) async* {
+  Stream<UIModel<UserResponse>> login(UserLogin userLogin) async* {
     yield UIModel.loading();
 
     try {
       final client = _retrofitController.authClient();
-      UserResponse result = await client.login(UserLogin(username, password));
+      UserResponse result = await client.login(userLogin);
       await _sharedPreferencesRepository
-          .cache(Session(authToken: result.token))
+          .cache(Session(authToken: result.accessToken))
           .first;
       yield UIModel.success(result);
     } catch (e) {
@@ -32,14 +32,16 @@ class AuthRepository {
     }
   }
 
-  Stream<UIModel<bool>> register(
-      String username, String password, String email) async* {
+  Stream<UIModel<UserResponse>> register(UserRegister userRegister) async* {
     yield UIModel.loading();
 
     try {
       final client = _retrofitController.authClient();
-      await client.register(UserRegister(username, email, password));
-      yield UIModel.success(true);
+      UserResponse result = await client.register(userRegister);
+      await _sharedPreferencesRepository
+          .cache(Session(authToken: result.accessToken))
+          .first;
+      yield UIModel.success(result);
     } catch (e) {
       yield UIModel.error(e);
     }

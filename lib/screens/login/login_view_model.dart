@@ -12,7 +12,7 @@ class LoginViewModel {
       : _authRepository = authRepository ?? AuthRepository() {
     output = Output(
       input.login.flatMap(
-        (value) => _authRepository.login(value.username, value.password),
+        (value) => _authRepository.login(value),
       ),
     );
   }
@@ -31,10 +31,10 @@ class Output {
 }
 
 class UserLogin {
-  final String username;
+  final String email;
   final String password;
 
-  UserLogin(this.username, this.password);
+  UserLogin(this.email, this.password);
 
-  Map<String, dynamic> toJson() => {"username": username, "password": password};
+  Map<String, dynamic> toJson() => {"email": email, "password": password};
 }

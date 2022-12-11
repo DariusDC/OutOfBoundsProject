@@ -10,6 +10,7 @@ import '../model/user.dart';
 class UserRepo {
   SharedPreferencesRepository sharedPreferencesRepository;
   RetrofitController retrofitController;
+
   UserRepo()
       : retrofitController = RetrofitController(),
         sharedPreferencesRepository = SharedPreferencesRepository();
