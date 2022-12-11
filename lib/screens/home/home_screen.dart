@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:out_of_bounds/model/user.dart';
+import 'package:out_of_bounds/screens/mentors/mentors_screen.dart';
 import 'package:out_of_bounds/themes/app_colors.dart';
 import 'package:out_of_bounds/themes/app_text_styles.dart';
 import 'package:out_of_bounds/widgets/app_bar/hello_app_bar.dart';
@@ -53,9 +54,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   void _onMentors() {
     Navigator.of(context).push(MaterialPageRoute(builder: (context) {
-      return TechnologiesScreen(
-        onSubmit: (technologies) {},
-      );
+      return const MentorsScreen();
     }));
   }
 
