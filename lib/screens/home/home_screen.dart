@@ -1,12 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:out_of_bounds/model/mentor.dart';
 import 'package:out_of_bounds/model/technology.dart';
 import 'package:out_of_bounds/model/user.dart';
 import 'package:out_of_bounds/screens/base_request_screen.dart';
 import 'package:out_of_bounds/screens/home/home_view_model.dart';
+import 'package:out_of_bounds/screens/mentor_details/mentor_details_screen.dart';
 import 'package:out_of_bounds/screens/mentors/mentors_screen.dart';
 import 'package:out_of_bounds/themes/app_colors.dart';
+import 'package:out_of_bounds/themes/app_dimens.dart';
 import 'package:out_of_bounds/themes/app_text_styles.dart';
 import 'package:out_of_bounds/widgets/app_bar/hello_app_bar.dart';
+import 'package:out_of_bounds/widgets/elements/dialog/bottom_modal_sheet.dart';
+import 'package:out_of_bounds/widgets/mentors_widgets/mentor_list_item.dart';
 import 'package:rxdart/rxdart.dart';
 
 import '../../model/ui_model.dart';
@@ -49,6 +54,13 @@ class _HomeScreenState extends BaseRequestScreen<HomeScreen> {
     }));
   }
 
+  _onMentorTap(Mentor mentor) {
+    AppBottomModalSheet.displayModalBottomSheet(
+      context,
+      (context) => MentorDetailsScreen(mentor: mentor),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -63,6 +75,24 @@ class _HomeScreenState extends BaseRequestScreen<HomeScreen> {
               child: SingleChildScrollView(
                 child: Column(
                   children: [
+                    if (user?.mentor != null)
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const SizedBox(height: AppDimens.largePadding),
+                          const Padding(
+                            padding: EdgeInsets.symmetric(
+                              horizontal: AppDimens.regularPadding,
+                            ),
+                            child: Text(
+                              "Your mentor",
+                              style: AppTextStyles.x4LBoldPoppins,
+                            ),
+                          ),
+                          MentorListItem(
+                              mentor: user?.mentor, onMentorTap: _onMentorTap)
+                        ],
+                      ),
                     const SizedBox(height: 20),
                     if ((user?.technologies?.isEmpty ?? true) &&
                         (user?.mentor == null))

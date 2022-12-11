@@ -8,14 +8,15 @@ class AppBottomModalSheet {
   static displayModalBottomSheet(BuildContext context, WidgetBuilder builder,
       {bool enableDrag = true, Color backgroundColor = AppColors.white}) {
     showMaterialModalBottomSheet(
-        context: context,
-        backgroundColor: backgroundColor,
-        shape: const RoundedRectangleBorder(
-          borderRadius: BorderRadius.vertical(
-            top: Radius.circular(AppDimens.appBottomModalBorderRadius),
-          ),
+      context: context,
+      backgroundColor: backgroundColor,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(
+          top: Radius.circular(AppDimens.appBottomModalBorderRadius),
         ),
-        builder: builder,
-        enableDrag: enableDrag);
+      ),
+      builder: builder,
+      enableDrag: enableDrag,
+    );
   }
 }

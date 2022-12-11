@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:out_of_bounds/screens/mentor_details/mentor_details_screen.dart';
 import 'package:out_of_bounds/themes/app_colors.dart';
 import 'package:out_of_bounds/themes/app_dimens.dart';
 import 'package:out_of_bounds/widgets/elements/dialog/bottom_modal_sheet.dart';
+import 'package:out_of_bounds/widgets/mentors_widgets/mentor_list_item.dart';
 
 import '../../model/mentor.dart';
 import '../../model/technology.dart';
@@ -90,44 +92,7 @@ class _MentorsScreenState extends State<MentorsScreen> {
   void _onMentorTap(Mentor mentor) {
     AppBottomModalSheet.displayModalBottomSheet(
       context,
-      (context) => Column(
-        mainAxisSize: MainAxisSize.min,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          BottomSheetTopWidget(
-            title: mentor.fullName,
-            dismissTap: () => Navigator.of(context).pop(),
-          ),
-          const AppDivider(),
-          Container(
-            height: MediaQuery.of(context).size.height / 2,
-            child: SingleChildScrollView(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const Padding(
-                    padding: EdgeInsets.only(left: 10.0),
-                    child: Text(
-                      "Reviews:",
-                      // style: AppTextStyles.largeBoldPoppins,
-                    ),
-                  ),
-                  ...(mentor.reviews
-                      .map((e) => Padding(
-                            padding: const EdgeInsets.only(
-                              left: 10.0,
-                              bottom: 10.0,
-                              right: 10.0,
-                            ),
-                            child: Text("- $e"),
-                          ))
-                      .toList()),
-                ],
-              ),
-            ),
-          ),
-        ],
-      ),
+      (context) => MentorDetailsScreen(mentor: mentor),
     );
   }
 }
@@ -148,51 +113,7 @@ class MentorsList extends StatelessWidget {
       child: Column(
         children: mentors
             .map(
-              (e) => GestureDetector(
-                onTap: () => onMentorTap(e),
-                child: Container(
-                  width: double.infinity,
-                  decoration: BoxDecoration(
-                    borderRadius: const BorderRadius.all(Radius.circular(10)),
-                    border: Border.all(color: AppColors.green),
-                  ),
-                  // color: Colors.yellow,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.only(
-                          left: AppDimens.smallPadding,
-                          right: AppDimens.smallPadding,
-                          top: AppDimens.smallPadding,
-                        ),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              e.fullName,
-                              style: AppTextStyles.largeBoldPoppins,
-                            ),
-                            const Icon(Icons.arrow_drop_up)
-                          ],
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(
-                          right: AppDimens.smallPadding,
-                          left: AppDimens.smallPadding,
-                          bottom: AppDimens.smallPadding,
-                        ),
-                        child: Text(
-                          e.description,
-                          style: AppTextStyles.smallRegularPoppins,
-                        ),
-                      ),
-                    ],
-                  ),
-                  margin: EdgeInsets.all(10),
-                ),
-              ),
+              (e) => MentorListItem(mentor: e, onMentorTap: onMentorTap),
             )
             .toList(),
       ),
@@ -203,6 +124,7 @@ class MentorsList extends StatelessWidget {
 class TechnologyTypeFilterWidget extends StatefulWidget {
   final List<TechnologyType> filters;
   final Function(TechnologyType?) onSelected;
+
   const TechnologyTypeFilterWidget({
     Key? key,
     required this.onSelected,
@@ -217,6 +139,7 @@ class TechnologyTypeFilterWidget extends StatefulWidget {
 class _TechnologyTypeFilterWidgetState
     extends State<TechnologyTypeFilterWidget> {
   TechnologyType? _selectedFilter = TechnologyType.any;
+
   @override
   Widget build(BuildContext context) {
     return Row(

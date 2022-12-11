@@ -2,15 +2,18 @@ import 'package:out_of_bounds/model/task/task.dart';
 import 'package:out_of_bounds/model/task/task_type.dart';
 import 'package:out_of_bounds/model/ui_model.dart';
 import 'package:out_of_bounds/repository/task_repo.dart';
+import 'package:out_of_bounds/repository/user_repo.dart';
 import 'package:rxdart/rxdart.dart';
 
 class TaskDetailsViewModel {
   final Input input;
   late Output output;
   final TaskRepo _taskRepo;
+  final UserRepo _userRepo;
 
-  TaskDetailsViewModel(this.input, {TaskRepo? taskRepo})
-      : _taskRepo = taskRepo ?? TaskRepo() {
+  TaskDetailsViewModel(this.input, {TaskRepo? taskRepo, UserRepo? userRepo})
+      : _taskRepo = taskRepo ?? TaskRepo(),
+        _userRepo = userRepo ?? UserRepo() {
     output = Output(
       input.saveTask.flatMap(
         (event) {

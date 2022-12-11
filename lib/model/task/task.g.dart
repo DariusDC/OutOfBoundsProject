@@ -13,9 +13,10 @@ Task _$TaskFromJson(Map<String, dynamic> json) => Task(
           .toList(),
       name: json['name'] as String?,
       status: $enumDecodeNullable(_$TaskTypeEnumMap, json['status']),
-    );
+    )..id = json['id'] as int?;
 
 Map<String, dynamic> _$TaskToJson(Task instance) => <String, dynamic>{
+      'id': instance.id,
       'name': instance.name,
       'description': instance.description,
       'subTasks': instance.subTasks,

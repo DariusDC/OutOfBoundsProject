@@ -7,6 +7,7 @@ part 'task.g.dart';
 
 @JsonSerializable()
 class Task {
+  int? id;
   String? name;
   String? description;
   List<Subtask>? subTasks;

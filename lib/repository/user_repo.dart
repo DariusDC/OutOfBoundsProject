@@ -36,6 +36,12 @@ class UserRepo {
   }
 
   Stream<User> getUserData() {
-    return retrofitController.authClient().getUserData().asStream();
+    return retrofitController
+        .authClient()
+        .getUserData()
+        .asStream()
+        .flatMap((user) {
+      return sharedPreferencesRepository.cache(user).map((event) => user);
+    });
   }
 }
