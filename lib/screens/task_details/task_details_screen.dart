@@ -130,15 +130,18 @@ class _TaskDetailsScreenState extends BaseRequestScreen<TaskDetailsScreen> {
                       ),
                     Padding(
                       padding: const EdgeInsets.only(right: 5, left: 25),
-                      child: ElevatedButton(
-                        onPressed: () => _viewModel.input.saveTask.add(
-                          SaveTaskInput(
-                              task: _task, saveTaskType: SaveTaskType.SAVE),
-                        ),
-                        style: ElevatedButton.styleFrom(
-                            primary: AppColors.darkBlue),
-                        child: const Text("Save"),
-                      ),
+                      child: widget.task.taskType == TaskType.IN_PROGRESS
+                          ? ElevatedButton(
+                              onPressed: () => _viewModel.input.saveTask.add(
+                                SaveTaskInput(
+                                    task: _task,
+                                    saveTaskType: SaveTaskType.SAVE),
+                              ),
+                              style: ElevatedButton.styleFrom(
+                                  primary: AppColors.darkBlue),
+                              child: const Text("Save"),
+                            )
+                          : Container(),
                     ),
                   ],
                 ),

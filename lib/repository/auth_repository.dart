@@ -44,4 +44,6 @@ class AuthRepository {
       yield UIModel.error(e);
     }
   }
+
+  Stream<bool> logout() => _sharedPreferencesRepository.remove("token");
 }

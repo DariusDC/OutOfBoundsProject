@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:out_of_bounds/model/technology.dart';
+import 'package:out_of_bounds/screens/settings/settings_screen.dart';
 import 'package:out_of_bounds/screens/technologies/technologies_screen.dart';
 import 'package:out_of_bounds/themes/app_text_styles.dart';
 import 'package:out_of_bounds/screens/progress/progress_screen.dart';
@@ -56,21 +57,10 @@ class _AppNavigationState extends State<AppNavigation> {
 
   Widget get _getScreen {
     if (_selectedIndex == 0) {
-      return ProgressScreen();
+      return const ProgressScreen();
     } else if (_selectedIndex == 1) {
-      return HomeScreen();
+      return const HomeScreen();
     }
-    return Center(
-      child: ElevatedButton(
-        onPressed: () {
-          Navigator.of(context).push(MaterialPageRoute(builder: (context) {
-            return TechnologiesScreen(
-              onSubmit: (technologies) {},
-            );
-          }));
-        },
-        child: Text("Selecte Technologies"),
-      ),
-    );
+    return const SettingsScreen();
   }
 }
