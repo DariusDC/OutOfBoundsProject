@@ -20,7 +20,16 @@ class TaskDetailsViewModel {
           if (event.saveTaskType == SaveTaskType.START) {
             event.task.status = TaskType.IN_PROGRESS;
           }
-          return _taskRepo.updateTask(event.task);
+          return _taskRepo.updateTask(event.task).flatMap(
+            (event) {
+              if (event.state == OperationState.ok) {
+                return _userRepo
+                    .getUserData()
+                    .map((user) => UIModel.success(true));
+              }
+              return Stream.value(UIModel<bool>.loading());
+            },
+          );
         },
       ).asBroadcastStream(),
     );
