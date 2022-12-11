@@ -110,7 +110,7 @@ class _MentorsScreenState extends State<MentorsScreen> {
                   ),
                   ...(mentor.reviews
                       .map((e) => Padding(
-                            padding: EdgeInsets.only(
+                            padding: const EdgeInsets.only(
                               left: 10.0,
                               bottom: 10.0,
                               right: 10.0,
