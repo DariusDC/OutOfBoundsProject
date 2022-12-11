@@ -1,3 +1,7 @@
+import 'package:json_annotation/json_annotation.dart';
+part 'mentor.g.dart';
+
+@JsonSerializable()
 class Mentor {
   String? firstName;
   String? lastName;
@@ -14,4 +18,7 @@ class Mentor {
   });
 
   String get fullName => "${firstName ?? ""} ${lastName ?? ""}";
+  factory Mentor.fromJson(Map<String, dynamic> json) => _$MentorFromJson(json);
+
+  Map<String, dynamic> toJson() => _$MentorToJson(this);
 }

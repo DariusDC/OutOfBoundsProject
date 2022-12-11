@@ -21,44 +21,35 @@ class _TechnologiesScreenState extends State<TechnologiesScreen> {
   final List<Technology> _technologies = [
     Technology(
       name: "Flutter",
-      description: "flutter + dart",
       type: TechnologyType.mobile,
     ),
     Technology(
       name: "React",
-      description: "node js",
       type: TechnologyType.backEnd,
     ),
     Technology(
       name: "Angular",
-      description: "type script, css, html",
       type: TechnologyType.backEnd,
     ),
     Technology(
       name: "Java Spring Boot",
-      description: "java for back end",
       type: TechnologyType.backEnd,
     ),
     Technology(
       name: "C++",
-      description: "professionals",
       type: TechnologyType.ai,
     ),
     Technology(
       name: "Embedded C",
-      description: "arduino",
     ),
     Technology(
       name: "Embedded C",
-      description: "arduino",
     ),
     Technology(
       name: "Embedded C",
-      description: "arduino",
     ),
     Technology(
       name: "Embedded C",
-      description: "arduino",
     ),
   ];
   List<Technology> _technologyList = [];

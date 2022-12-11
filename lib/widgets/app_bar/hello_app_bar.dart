@@ -6,7 +6,7 @@ import 'package:out_of_bounds/themes/app_text_styles.dart';
 import 'package:out_of_bounds/widgets/app_divider.dart';
 
 class HelloAppBar extends StatelessWidget {
-  final User user;
+  final User? user;
 
   const HelloAppBar({Key? key, required this.user}) : super(key: key);
 
@@ -23,7 +23,7 @@ class HelloAppBar extends StatelessWidget {
           child: Align(
             alignment: Alignment.centerLeft,
             child: Text(
-              "Hello, ${user.fullName}",
+              user == null ? "Hello" : "Hello, ${user!.fullName}",
               style: AppTextStyles.x2LBoldPoppins,
             ),
           ),

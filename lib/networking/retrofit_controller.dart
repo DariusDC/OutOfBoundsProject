@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:out_of_bounds/model/user.dart';
 import 'package:out_of_bounds/networking/clients/auth_client.dart';
 import 'package:out_of_bounds/utils/app_constants.dart';
 

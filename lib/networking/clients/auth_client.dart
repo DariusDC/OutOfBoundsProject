@@ -4,15 +4,20 @@ import 'package:out_of_bounds/screens/register/register_view_model.dart';
 import 'package:retrofit/http.dart';
 import 'package:dio/dio.dart';
 
+import '../../model/user.dart';
+
 part 'auth_client.g.dart';
 
 @RestApi()
 abstract class AuthClient {
   factory AuthClient(Dio dio, {String baseUrl}) = _AuthClient;
 
-  @POST("/api/auth/signup")
+  @POST("/auth/signup")
   Future<UserResponse> register(@Body() UserRegister userRegister);
 
-  @POST("/api/auth/signin")
+  @POST("/auth/signin")
   Future<UserResponse> login(@Body() UserLogin userLogin);
+
+  @POST("/student/me")
+  Future<User> getUserData();
 }

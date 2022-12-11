@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:out_of_bounds/model/user.dart';
+import 'package:out_of_bounds/screens/base_request_screen.dart';
+import 'package:out_of_bounds/screens/home/home_view_model.dart';
 import 'package:out_of_bounds/screens/mentors/mentors_screen.dart';
 import 'package:out_of_bounds/themes/app_colors.dart';
 import 'package:out_of_bounds/themes/app_text_styles.dart';
 import 'package:out_of_bounds/widgets/app_bar/hello_app_bar.dart';
+import 'package:rxdart/rxdart.dart';
 
+import '../../model/ui_model.dart';
 import '../technologies/technologies_screen.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -14,24 +18,48 @@ class HomeScreen extends StatefulWidget {
   State<HomeScreen> createState() => _HomeScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
+class _HomeScreenState extends BaseRequestScreen<HomeScreen> {
+  late HomeViewModel homeViewModel;
+  User? user;
+  @override
+  void initState() {
+    super.initState();
+    homeViewModel = HomeViewModel(
+      input: Input(
+        PublishSubject(),
+      ),
+    );
+    disposeLater(homeViewModel.output.onSubmit.listen((userModel) {
+      setState(() {
+        switch (userModel.state) {
+          case OperationState.loading:
+            break;
+          case OperationState.error:
+            break;
+          case OperationState.ok:
+            user = userModel.data;
+            break;
+        }
+      });
+    }));
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Column(
         children: [
           HelloAppBar(
-            user: User(
-                firstName: "Ionut",
-                lastName: "Constantin",
-                email: "asdk@asd.csq"),
+            user: user,
           ),
           Expanded(
             child: SingleChildScrollView(
               child: Column(
                 children: [
                   const SizedBox(height: 20),
-                  _technologiesCard,
+                  if ((user?.technologies?.isEmpty ?? true) &&
+                      (user?.mentor == null))
+                    _technologiesCard,
                   const SizedBox(height: 20),
                   _mentorsCard,
                   const SizedBox(height: 20),
