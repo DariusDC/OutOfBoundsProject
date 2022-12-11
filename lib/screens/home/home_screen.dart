@@ -12,7 +12,9 @@ import '../../model/ui_model.dart';
 import '../technologies/technologies_screen.dart';
 
 class HomeScreen extends StatefulWidget {
-  const HomeScreen({Key? key}) : super(key: key);
+  final User? user;
+
+  const HomeScreen({Key? key, required this.user}) : super(key: key);
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
@@ -21,9 +23,11 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends BaseRequestScreen<HomeScreen> {
   late HomeViewModel homeViewModel;
   User? user;
+
   @override
   void initState() {
     super.initState();
+    user = widget.user;
     homeViewModel = HomeViewModel(
       input: Input(
         PublishSubject(),
@@ -62,8 +66,11 @@ class _HomeScreenState extends BaseRequestScreen<HomeScreen> {
                   if ((user?.technologies?.isEmpty ?? true) &&
                       (user?.mentor == null))
                     _technologiesCard,
+                  if ((user?.technologies?.isNotEmpty ?? true) &&
+                      (user?.mentor == null))
+                    const Text("Waiting for mentor..."),
                   const SizedBox(height: 20),
-                  _mentorsCard,
+                  if (user?.mentor == null) _mentorsCard,
                   const SizedBox(height: 20),
                 ],
               ),

@@ -61,27 +61,26 @@ class _AppNavigationScreenState extends BaseRequestScreen<AppNavigationScreen> {
   Widget build(BuildContext context) {
     if (_user == null) return Container();
     return Scaffold(
-      body: _getScreen,
-      bottomNavigationBar: _user?.userState == UserState.WORKING
-          ? BottomNavigationBar(
-              currentIndex: _selectedIndex,
-              onTap: (index) {
-                setState(() {
-                  _selectedIndex = index;
-                });
-              },
-              items: _bottomNavigationBarItems,
-            )
-          : null,
-    );
+        body: _getScreen,
+        bottomNavigationBar: BottomNavigationBar(
+          currentIndex: _selectedIndex,
+          onTap: (index) {
+            setState(() {
+              if (!(index == 0 && _user?.userState != UserState.WORKING)) {
+                _selectedIndex = index;
+              }
+            });
+          },
+          items: _bottomNavigationBarItems,
+        ));
   }
 
   Widget get _getScreen {
     if (_selectedIndex == 0) {
       return ProgressScreen(user: _user);
     } else if (_selectedIndex == 1) {
-      return const HomeScreen();
+      return HomeScreen(user: _user);
     }
-    return const SettingsScreen();
+    return SettingsScreen(user: _user);
   }
 }

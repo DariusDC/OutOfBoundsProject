@@ -12,7 +12,9 @@ import 'package:out_of_bounds/widgets/settings_list_item.dart';
 import 'package:rxdart/rxdart.dart';
 
 class SettingsScreen extends StatefulWidget {
-  const SettingsScreen({Key? key}) : super(key: key);
+  final User? user;
+
+  const SettingsScreen({Key? key, this.user}) : super(key: key);
 
   @override
   _SettingsScreenState createState() => _SettingsScreenState();
@@ -63,7 +65,7 @@ class _SettingsScreenState extends BaseRequestScreen<SettingsScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              HelloAppBar(user: User(firstName: "Marius", lastName: "Popa")),
+              HelloAppBar(user: widget.user),
               const SizedBox(height: AppDimens.largePadding),
               const Padding(
                 padding: EdgeInsets.symmetric(horizontal: 20),

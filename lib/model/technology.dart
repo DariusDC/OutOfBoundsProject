@@ -1,4 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
+
 part 'technology.g.dart';
 
 @JsonSerializable()
@@ -11,8 +12,13 @@ class Technology {
     this.type = TechnologyType.any,
   });
 
-  factory Technology.fromJson(Map<String, dynamic> json) =>
-      _$TechnologyFromJson(json);
+  factory Technology.fromJson(Map<String, dynamic> json) => Technology(
+      name: json["name"] ?? "",
+      type: TechnologyType.values.firstWhere(
+        (element) =>
+            element.toString() == "TechnologyType." + (json["type"] ?? ""),
+        orElse: () => TechnologyType.any,
+      ));
 
   String get description {
     switch (type) {
@@ -29,6 +35,8 @@ class Technology {
       case TechnologyType.imageProcessing:
         return "Image Processing";
       case TechnologyType.any:
+        return "Any";
+      default:
         return "Any";
     }
   }
