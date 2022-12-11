@@ -7,16 +7,16 @@ part 'task.g.dart';
 
 @JsonSerializable()
 class Task {
-  final String name;
-  final String description;
-  final List<Subtask> subtasks;
-  final TaskType taskType;
+  String? name;
+  String? description;
+  List<Subtask>? subTasks;
+  TaskType? status;
 
   Task({
     required this.description,
-    required this.subtasks,
+    required this.subTasks,
     required this.name,
-    required this.taskType,
+    required this.status,
   });
 
   factory Task.fromJson(Map<String, dynamic> json) => _$TaskFromJson(json);

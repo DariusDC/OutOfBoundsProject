@@ -1,24 +1,23 @@
 import 'package:out_of_bounds/model/task/task.dart';
 import 'package:out_of_bounds/model/task/task_type.dart';
 import 'package:out_of_bounds/model/ui_model.dart';
+import 'package:out_of_bounds/repository/task_repo.dart';
 import 'package:rxdart/rxdart.dart';
 
 class TaskDetailsViewModel {
   final Input input;
   late Output output;
+  final TaskRepo _taskRepo;
 
-  TaskDetailsViewModel(this.input) {
+  TaskDetailsViewModel(this.input, {TaskRepo? taskRepo})
+      : _taskRepo = taskRepo ?? TaskRepo() {
     output = Output(
-      input.saveTask.map(
+      input.saveTask.flatMap(
         (event) {
-          print(event);
-          return UIModel.success(
-            Task(
-                description: "description",
-                subtasks: [],
-                name: "",
-                taskType: TaskType.IN_PROGRESS),
-          );
+          if (event.saveTaskType == SaveTaskType.START) {
+            event.task.status = TaskType.IN_PROGRESS;
+          }
+          return _taskRepo.updateTask(event.task);
         },
       ).asBroadcastStream(),
     );
@@ -32,7 +31,7 @@ class Input {
 }
 
 class Output {
-  final Stream<UIModel<Task>> onSaveTask;
+  final Stream<UIModel<bool>> onSaveTask;
 
   Output(this.onSaveTask);
 }

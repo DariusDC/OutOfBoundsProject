@@ -8,7 +8,6 @@ import 'package:out_of_bounds/themes/app_colors.dart';
 import 'package:out_of_bounds/themes/app_dimens.dart';
 import 'package:out_of_bounds/themes/app_text_styles.dart';
 import 'package:out_of_bounds/widgets/app_divider.dart';
-import 'package:out_of_bounds/widgets/buttons/general_button.dart';
 import 'package:out_of_bounds/widgets/elements/dialog/bottom_sheet_top_widget.dart';
 import 'package:out_of_bounds/widgets/task_details_widgets/task_details_subtask_widget.dart';
 import 'package:rxdart/rxdart.dart';
@@ -45,17 +44,21 @@ class _TaskDetailsScreenState extends BaseRequestScreen<TaskDetailsScreen> {
   _bindUI() {
     fetchData(
       _viewModel.output.onSaveTask,
-      handleValue: (task) {},
+      handleValue: (task) {
+        Navigator.of(context).pop(true);
+      },
       handleError: (error) {},
     );
   }
 
   _onSubtaskStatusChanged(Subtask subtask, bool value) {
     setState(() {
-      int subtaskIndex =
-          _task.subtasks.indexWhere((element) => element.id == subtask.id);
-      if (subtaskIndex != -1) {
-        _task.subtasks[subtaskIndex].done = value;
+      if (_task.subTasks != null) {
+        int subtaskIndex =
+            _task.subTasks!.indexWhere((element) => element.id == subtask.id);
+        if (subtaskIndex != -1) {
+          _task.subTasks![subtaskIndex].done = value;
+        }
       }
     });
   }
@@ -79,13 +82,13 @@ class _TaskDetailsScreenState extends BaseRequestScreen<TaskDetailsScreen> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  widget.task.name,
+                  widget.task.name ?? "",
                   style: AppTextStyles.x5LBoldPoppins,
                 ),
                 const AppDivider(),
                 const SizedBox(height: AppDimens.xSPadding),
                 Text(
-                  widget.task.description,
+                  widget.task.description ?? "",
                   style: AppTextStyles.smallRegularPoppins.copyWith(
                     color: AppColors.darkGray,
                   ),
@@ -98,27 +101,28 @@ class _TaskDetailsScreenState extends BaseRequestScreen<TaskDetailsScreen> {
                   style: AppTextStyles.mediumSemiBoldPoppins,
                 ),
                 const SizedBox(height: AppDimens.smallPadding),
-                ..._task.subtasks
-                    .map((subtask) => Padding(
-                          padding: const EdgeInsets.only(
-                            bottom: AppDimens.smallPadding,
-                          ),
-                          child: TaskDetailsSubtaskWidget(
-                            subtask: subtask,
-                            onSubtaskStatusChanged: (value) =>
-                                _onSubtaskStatusChanged(
-                              subtask,
-                              value ?? false,
-                            ),
-                            showCheckbox:
-                                _task.taskType == TaskType.IN_PROGRESS,
-                          ),
-                        ))
-                    .toList(),
+                ..._task.subTasks
+                        ?.map((subtask) => Padding(
+                              padding: const EdgeInsets.only(
+                                bottom: AppDimens.smallPadding,
+                              ),
+                              child: TaskDetailsSubtaskWidget(
+                                subtask: subtask,
+                                onSubtaskStatusChanged: (value) =>
+                                    _onSubtaskStatusChanged(
+                                  subtask,
+                                  value ?? false,
+                                ),
+                                showCheckbox:
+                                    _task.status == TaskType.IN_PROGRESS,
+                              ),
+                            ))
+                        .toList() ??
+                    [],
                 Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
-                    if (widget.task.taskType == TaskType.TODO)
+                    if (widget.task.status == TaskType.TODO)
                       ElevatedButton(
                         onPressed: () => _viewModel.input.saveTask.add(
                           SaveTaskInput(
@@ -130,7 +134,7 @@ class _TaskDetailsScreenState extends BaseRequestScreen<TaskDetailsScreen> {
                       ),
                     Padding(
                       padding: const EdgeInsets.only(right: 5, left: 25),
-                      child: widget.task.taskType == TaskType.IN_PROGRESS
+                      child: widget.task.status == TaskType.IN_PROGRESS
                           ? ElevatedButton(
                               onPressed: () => _viewModel.input.saveTask.add(
                                 SaveTaskInput(

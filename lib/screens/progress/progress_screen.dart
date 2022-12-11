@@ -15,39 +15,9 @@ import 'package:out_of_bounds/widgets/task_progress_card.dart';
 import 'package:out_of_bounds/widgets/tasks/task_list_item_widget.dart';
 import 'package:rxdart/rxdart.dart';
 
-List<Task> tasks = [
-  Task(
-    description:
-        "task 1 task 1 task 1 task 1 task 1 task 1 task 1 task 1 task 1 task 1 task 1 task 1 task 1 task 1 task 1 task 1 task 1 task 1 task 1 task 1 task 1 task 1 task 1 task 1 task 1 task 1 task 1 task 1 task 1 task 1 task 1 task 1 task 1 task 1 task 1 task 1 ",
-    subtasks: [
-      Subtask(description: "t1 s1", done: false, id: 1),
-      Subtask(description: "t1 s2", done: true, id: 2)
-    ],
-    name: "fa task1",
-    taskType: TaskType.DONE,
-  ),
-  Task(
-    description: "task 2",
-    subtasks: [
-      Subtask(description: "t2 s1", done: true, id: 3),
-      Subtask(description: "t2 s2", done: true, id: 4)
-    ],
-    name: "fa task2",
-    taskType: TaskType.IN_PROGRESS,
-  ),
-  Task(
-    description: "task 3",
-    subtasks: [
-      Subtask(description: "t3 s1", done: false, id: 5),
-      Subtask(description: "t3 s2", done: false, id: 6)
-    ],
-    name: "fa task3",
-    taskType: TaskType.TODO,
-  ),
-];
-
 class ProgressScreen extends StatefulWidget {
   final User? user;
+
   const ProgressScreen({
     this.user,
     Key? key,
@@ -59,7 +29,7 @@ class ProgressScreen extends StatefulWidget {
 
 class _ProgressScreenState extends BaseRequestScreen<ProgressScreen> {
   late ProgressViewModel _viewModel;
-  final List<Task> _tasks = tasks;
+  List<Task> _tasks = [];
   TaskType _selectedFilter = TaskType.IN_PROGRESS;
 
   @override
@@ -85,12 +55,13 @@ class _ProgressScreenState extends BaseRequestScreen<ProgressScreen> {
           );
         },
       ),
-      // _viewModel.output.tasks.listen(
-      //     (tasks){
-      //       _tasks = tasks.value;
-      //     }
-      // )
     );
+
+    fetchData<List<Task>>(_viewModel.output.tasks, handleValue: (tasks) {
+      setState(() {
+        _tasks = tasks;
+      });
+    });
   }
 
   _onFilterChanged(TaskType type) {
@@ -123,19 +94,21 @@ class _ProgressScreenState extends BaseRequestScreen<ProgressScreen> {
                       onTap: _onFilterChanged,
                     ),
                     const SizedBox(height: AppDimens.largePadding),
-                    ..._tasks
-                        .where((element) => element.taskType == _selectedFilter)
-                        .map((e) => Column(
-                              children: [
-                                TaskListItemWidget(
-                                  task: e,
-                                  onTap: () =>
-                                      _viewModel.input.taskTapped.add(e),
-                                ),
-                                const SizedBox(height: AppDimens.xSPadding)
-                              ],
-                            ))
-                        .toList(),
+                    if (_tasks.isNotEmpty)
+                      ..._tasks
+                          .where(
+                              (element) => element.status == _selectedFilter)
+                          .map((e) => Column(
+                                children: [
+                                  TaskListItemWidget(
+                                    task: e,
+                                    onTap: () =>
+                                        _viewModel.input.taskTapped.add(e),
+                                  ),
+                                  const SizedBox(height: AppDimens.xSPadding)
+                                ],
+                              ))
+                          .toList(),
                   ],
                 ),
               ),

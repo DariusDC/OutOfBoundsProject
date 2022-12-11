@@ -3,11 +3,12 @@ import 'package:out_of_bounds/model/task/task_type.dart';
 
 extension TaskListExtensions on List<Task> {
   double getPercentOfDoneTasks() {
+    if (isEmpty) return 0;
     double count =
-        where((element) => element.taskType == TaskType.DONE).length.toDouble();
+        where((element) => element.status == TaskType.DONE).length.toDouble();
     return (count / length.toDouble());
   }
 
   int countDoneTasks() =>
-      where((element) => element.taskType == TaskType.DONE).length;
+      where((element) => element.status == TaskType.DONE).length;
 }

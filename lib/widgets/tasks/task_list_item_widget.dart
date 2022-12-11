@@ -26,11 +26,12 @@ class TaskListItemWidget extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(task.name, style: AppTextStyles.mediumBoldPoppins),
+                    Text(task.name ?? "",
+                        style: AppTextStyles.mediumBoldPoppins),
                     Text(
-                      task.description.length > 50
-                          ? task.description.substring(0, 50)
-                          : task.description,
+                      (task.description?.length ?? 0) > 50
+                          ? task.description?.substring(0, 50) ?? ""
+                          : task.description ?? "",
                       style: AppTextStyles.smallRegularPoppins,
                     ),
                   ],
@@ -40,9 +41,9 @@ class TaskListItemWidget extends StatelessWidget {
                 children: [
                   const Icon(Icons.arrow_right_outlined),
                   Text(
-                    "${task.subtasks.where((element) => element.done ?? false).length.toString()}/${task.subtasks.length.toString()} tasks",
+                    "${task.subTasks?.where((element) => element.done ?? false).length.toString()}/${task.subTasks?.length.toString()} tasks",
                     style: AppTextStyles.smallSemiBoldPoppins.copyWith(
-                      color: getColorForTaskType(task.taskType),
+                      color: getColorForTaskType(task.status),
                     ),
                   )
                 ],
@@ -54,7 +55,7 @@ class TaskListItemWidget extends StatelessWidget {
     );
   }
 
-  Color getColorForTaskType(TaskType type) {
+  Color getColorForTaskType(TaskType? type) {
     switch (type) {
       case TaskType.IN_PROGRESS:
         return AppColors.green;
@@ -62,6 +63,8 @@ class TaskListItemWidget extends StatelessWidget {
         return AppColors.darkGray;
       case TaskType.TODO:
         return AppColors.cyan;
+      default:
+        return AppColors.green;
     }
   }
 }
