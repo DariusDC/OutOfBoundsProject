@@ -48,8 +48,10 @@ List<Task> tasks = [
 
 class ProgressScreen extends StatefulWidget {
   final User? user;
-
-  const ProgressScreen({Key? key, this.user}) : super(key: key);
+  const ProgressScreen({
+    this.user,
+    Key? key,
+  }) : super(key: key);
 
   @override
   _ProgressScreenState createState() => _ProgressScreenState();
@@ -65,6 +67,7 @@ class _ProgressScreenState extends BaseRequestScreen<ProgressScreen> {
     super.initState();
     _viewModel = ProgressViewModel(
       Input(
+        PublishSubject(),
         PublishSubject(),
       ),
     );
@@ -82,6 +85,11 @@ class _ProgressScreenState extends BaseRequestScreen<ProgressScreen> {
           );
         },
       ),
+      // _viewModel.output.tasks.listen(
+      //     (tasks){
+      //       _tasks = tasks.value;
+      //     }
+      // )
     );
   }
 
@@ -99,7 +107,7 @@ class _ProgressScreenState extends BaseRequestScreen<ProgressScreen> {
         child: SingleChildScrollView(
           child: Column(
             children: [
-              HelloAppBar(user: User(firstName: "Marius", lastName: "Popa")),
+              HelloAppBar(user: widget.user),
               const SizedBox(height: AppDimens.largePadding),
               Padding(
                 padding: const EdgeInsets.symmetric(
