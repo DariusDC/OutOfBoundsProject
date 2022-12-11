@@ -1,5 +1,6 @@
 import 'package:out_of_bounds/model/session.dart';
 import 'package:out_of_bounds/model/ui_model.dart';
+import 'package:out_of_bounds/model/user.dart';
 import 'package:out_of_bounds/model/user_response.dart';
 import 'package:out_of_bounds/networking/retrofit_controller.dart';
 import 'package:out_of_bounds/repository/shared_preferences_repository.dart';
@@ -23,11 +24,14 @@ class AuthRepository {
     try {
       final client = _retrofitController.authClient();
       UserResponse result = await client.login(userLogin);
-      await _sharedPreferencesRepository
-          .cache(Session(authToken: result.accessToken))
-          .first;
+      final session = Session(authToken: result.accessToken);
+      await _sharedPreferencesRepository.cache(session).first;
+      User user = await client.getUserData();
+      await _sharedPreferencesRepository.cache(user).first;
       yield UIModel.success(result);
     } catch (e) {
+      await _sharedPreferencesRepository.remove("session").first;
+      await _sharedPreferencesRepository.remove("user").first;
       yield UIModel.error(e);
     }
   }

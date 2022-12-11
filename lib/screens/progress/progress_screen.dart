@@ -47,7 +47,9 @@ List<Task> tasks = [
 ];
 
 class ProgressScreen extends StatefulWidget {
-  const ProgressScreen({Key? key}) : super(key: key);
+  final User? user;
+
+  const ProgressScreen({Key? key, this.user}) : super(key: key);
 
   @override
   _ProgressScreenState createState() => _ProgressScreenState();

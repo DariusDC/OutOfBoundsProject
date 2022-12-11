@@ -74,7 +74,7 @@ class _AuthClient implements AuthClient {
     final _data = <String, dynamic>{};
     final _result =
         await _dio.fetch<Map<String, dynamic>>(_setStreamType<User>(Options(
-      method: 'POST',
+      method: 'GET',
       headers: _headers,
       extra: _extra,
     )

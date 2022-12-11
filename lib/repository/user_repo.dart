@@ -15,6 +15,9 @@ class UserRepo {
       : retrofitController = RetrofitController(),
         sharedPreferencesRepository = SharedPreferencesRepository();
 
+  Stream<User?> getUserFromLocal() => sharedPreferencesRepository.getItem(
+      "user", (json) => User.fromJson(json));
+
   Stream<User?> updateTechnologies(List<Technology> technologies) {
     return sharedPreferencesRepository
         .getItem("user", (json) => User.fromJson(json))
@@ -27,9 +30,7 @@ class UserRepo {
           .updateTechnologies(user.copyWith(technologies))
           .asStream()
           .flatMap((newUser) {
-        return sharedPreferencesRepository
-            .setString("user", jsonEncode(newUser.toJson()))
-            .map((_) => newUser);
+        return sharedPreferencesRepository.cache(newUser).map((_) => newUser);
       });
     });
   }

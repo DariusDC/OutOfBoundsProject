@@ -18,7 +18,7 @@ abstract class AuthClient {
   @POST("/auth/login")
   Future<UserResponse> login(@Body() UserLogin userLogin);
 
-  @POST("/student/me")
+  @GET("/student/me")
   Future<User> getUserData();
 
   @PATCH("/student/me")
