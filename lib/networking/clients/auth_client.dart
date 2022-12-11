@@ -20,4 +20,7 @@ abstract class AuthClient {
 
   @POST("/student/me")
   Future<User> getUserData();
+
+  @PATCH("/student/me")
+  Future<User> updateTechnologies(@Body() User user);
 }

@@ -31,7 +31,7 @@ class Input {
 }
 
 class Output {
-  final Stream<UIModel<User>> onSubmit;
+  final Stream<UIModel<User?>> onSubmit;
   Output({
     required this.onSubmit,
   });

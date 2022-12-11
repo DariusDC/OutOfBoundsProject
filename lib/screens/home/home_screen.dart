@@ -31,6 +31,8 @@ class _HomeScreenState extends BaseRequestScreen<HomeScreen> {
     );
     disposeLater(homeViewModel.output.onSubmit.listen((userModel) {
       setState(() {
+        print("${userModel.state}");
+        print("${userModel.data}");
         switch (userModel.state) {
           case OperationState.loading:
             break;
@@ -75,7 +77,9 @@ class _HomeScreenState extends BaseRequestScreen<HomeScreen> {
   void _onStart() {
     Navigator.of(context).push(MaterialPageRoute(builder: (context) {
       return TechnologiesScreen(
-        onSubmit: (technologies) {},
+        onSubmit: (technologies) {
+          homeViewModel.input.onSubmit.add(technologies);
+        },
       );
     }));
   }

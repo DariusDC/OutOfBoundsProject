@@ -19,6 +19,16 @@ class User {
     this.mentor,
   });
 
+  User copyWith(List<Technology> technologies) {
+    return User(
+      firstName: firstName,
+      lastName: lastName,
+      email: email,
+      technologies: technologies,
+      mentor: mentor,
+    );
+  }
+
   String get fullName => "${firstName ?? ""} ${lastName ?? ""}";
 
   factory User.fromJson(Map<String, dynamic> json) => _$UserFromJson(json);
