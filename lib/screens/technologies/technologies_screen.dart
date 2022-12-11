@@ -20,16 +20,24 @@ class TechnologiesScreen extends StatefulWidget {
 class _TechnologiesScreenState extends State<TechnologiesScreen> {
   final List<Technology> _technologies = [
     Technology(
+      name: "Kotlin",
+      type: TechnologyType.mobile,
+    ),
+    Technology(
+      name: "Swift",
+      type: TechnologyType.mobile,
+    ),
+    Technology(
       name: "Flutter",
       type: TechnologyType.mobile,
     ),
     Technology(
       name: "React",
-      type: TechnologyType.backEnd,
+      type: TechnologyType.frontEnd,
     ),
     Technology(
       name: "Angular",
-      type: TechnologyType.backEnd,
+      type: TechnologyType.frontEnd,
     ),
     Technology(
       name: "Java Spring Boot",
@@ -40,16 +48,8 @@ class _TechnologiesScreenState extends State<TechnologiesScreen> {
       type: TechnologyType.ai,
     ),
     Technology(
-      name: "Embedded C",
-    ),
-    Technology(
-      name: "Embedded C",
-    ),
-    Technology(
-      name: "Embedded C",
-    ),
-    Technology(
-      name: "Embedded C",
+      name: "Python",
+      type: TechnologyType.fullStack,
     ),
   ];
   List<Technology> _technologyList = [];

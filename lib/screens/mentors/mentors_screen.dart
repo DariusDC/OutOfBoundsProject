@@ -27,21 +27,25 @@ class _MentorsScreenState extends State<MentorsScreen> {
     Mentor(
       firstName: "Ionut",
       lastName: "Constantin",
+      description: "Full-Stack",
       reviews: [review],
     ),
     Mentor(
       firstName: "Darius",
       lastName: "Capolna",
+      description: "Mobile",
       reviews: [review, review],
     ),
     Mentor(
       firstName: "Patrick",
       lastName: "Ondreovici",
+      description: "AI",
       reviews: [review, review, review],
     ),
     Mentor(
       firstName: "Bogdan",
       lastName: "Pupeza",
+      description: "Mobile",
       reviews: [review, review, review, review],
     ),
   ];
