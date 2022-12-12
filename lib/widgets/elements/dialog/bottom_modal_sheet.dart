@@ -6,7 +6,9 @@ import 'package:out_of_bounds/themes/app_dimens.dart';
 
 class AppBottomModalSheet {
   static displayModalBottomSheet(BuildContext context, WidgetBuilder builder,
-      {bool enableDrag = true, Color backgroundColor = AppColors.white}) {
+      {bool enableDrag = true,
+      Color backgroundColor = AppColors.white,
+      VoidCallback? callback}) {
     showMaterialModalBottomSheet(
       context: context,
       backgroundColor: backgroundColor,
@@ -17,6 +19,8 @@ class AppBottomModalSheet {
       ),
       builder: builder,
       enableDrag: enableDrag,
-    );
+    ).then((value) {
+      callback?.call();
+    });
   }
 }

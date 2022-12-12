@@ -291,7 +291,7 @@ class _HomeScreenState extends BaseRequestScreen<HomeScreen> {
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 20),
       padding: const EdgeInsets.all(20),
-      height: MediaQuery.of(context).size.height * 2 / 5,
+      height: MediaQuery.of(context).size.height * 1 / 4,
       width: double.infinity,
       decoration: const BoxDecoration(
         borderRadius: BorderRadius.all(
@@ -308,11 +308,11 @@ class _HomeScreenState extends BaseRequestScreen<HomeScreen> {
             style: AppTextStyles.largeBoldBebasNeue
                 .copyWith(color: AppColors.yellow),
           ),
-          Text(
-            technology.description,
-            style: AppTextStyles.mediumBoldPoppins
-                .copyWith(color: AppColors.yellow, fontSize: 20),
-          ),
+          // Text(
+          //   technology.description,
+          //   style: AppTextStyles.mediumBoldPoppins
+          //       .copyWith(color: AppColors.yellow, fontSize: 20),
+          // ),
           ClipRRect(
             borderRadius: const BorderRadius.all(
               Radius.circular(16),
@@ -324,7 +324,7 @@ class _HomeScreenState extends BaseRequestScreen<HomeScreen> {
               ),
               onPressed: _openArticle,
               child: Text(
-                "Read More",
+                "Read Article",
                 style: AppTextStyles.largeBoldBebasNeue.copyWith(
                   color: AppColors.darkBlue,
                 ),

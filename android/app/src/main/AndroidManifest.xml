@@ -1,9 +1,11 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.outofbounds.out_of_bounds">
+<!--    <uses-permission android:name="I" />-->
    <application
         android:label="out_of_bounds"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
+
         <activity
             android:name=".MainActivity"
             android:exported="true"

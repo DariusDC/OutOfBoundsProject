@@ -50,9 +50,10 @@ class _ProgressScreenState extends BaseRequestScreen<ProgressScreen> {
       _viewModel.output.onTaskTapped.listen(
         (task) {
           AppBottomModalSheet.displayModalBottomSheet(
-            context,
-            (context) => TaskDetailsScreen(task: task),
-          );
+              context, (context) => TaskDetailsScreen(task: task),
+              callback: () {
+            _viewModel.input.onInit.add(true);
+          });
         },
       ),
     );
@@ -96,8 +97,7 @@ class _ProgressScreenState extends BaseRequestScreen<ProgressScreen> {
                     const SizedBox(height: AppDimens.largePadding),
                     if (_tasks.isNotEmpty)
                       ..._tasks
-                          .where(
-                              (element) => element.status == _selectedFilter)
+                          .where((element) => element.status == _selectedFilter)
                           .map((e) => Column(
                                 children: [
                                   TaskListItemWidget(
